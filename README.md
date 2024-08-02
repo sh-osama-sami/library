@@ -141,6 +141,138 @@ Delete a Borrowing Record
     Method: DELETE
     Description: Delete a borrowing record by its ID.
 
+Patron API
+Get All Patrons 
+
+- **URL**: `/api/patrons`
+- **Method**: `GET`
+- **Description**: Retrieve a list of all patrons.
+
+**Example Request**
+
+```bash
+curl -X GET http://localhost:8080/api/patrons
+```
+
+**Example Response**
+```json
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "membershipDate": "2022-01-15"
+  }
+]
+```
+Get Patron by ID
+- **URL**: `/api/patrons/{id}`
+- **Method**: `GET`
+- **Description**: Retrieve a patron by their ID.
+
+**Example Request**
+
+```bash
+curl -X GET http://localhost:8080/api/patrons/1
+```
+**Example Response**
+```json
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "membershipDate": "2022-01-15"
+  }
+]
+```
+Add a Patron
+
+- **URL**: `/api/patrons`
+- **Method**: `POST`
+- **Description**: Add a new patron.
+- **Request Body**:
+```json
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "membershipDate": "2024-08-01"
+}
+```
+
+**Example Request**
+
+```bash
+
+curl -X POST http://localhost:8080/api/patrons \
+     -H "Content-Type: application/json" \
+     -d '{"name": "Jane Smith", "email": "jane.smith@example.com", "membershipDate": "2024-08-01"}'
+```
+**Example Response**
+
+```json
+
+{
+  "id": 2,
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "membershipDate": "2024-08-01"
+}
+```
+Update a Patron
+
+- **URL**: `/api/patrons/{id}`
+- **Method**: `PUT`
+- **Description**: Update an existing patron's information.
+- **Request Body**:
+
+```json
+
+{
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "membershipDate": "2024-08-01"
+}
+```
+Example Request
+
+```bash
+
+curl -X PUT http://localhost:8080/api/patrons/2 \
+     -H "Content-Type: application/json" \
+     -d '{"name": "Jane Smith", "email": "jane.smith@example.com", "membershipDate": "2024-08-01"}'
+```
+Example Response
+
+```json
+
+{
+  "id": 2,
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "membershipDate": "2024-08-01"
+}
+```
+Delete a Patron
+
+- **URL**: `/api/patrons/{id}`
+- **Method**: `DELETE`
+- **Description**: Delete a patron by their ID.
+
+Example Request
+
+```bash
+
+curl -X DELETE http://localhost:8080/api/patrons/2
+```
+Example Response
+
+    Status Code: 204 No Content
+
+This API allows for full CRUD operations on patron records in the library management system, ensuring you can manage patron data efficiently.
+
+
 ## Authentication
 ### Basic Authentication
 
