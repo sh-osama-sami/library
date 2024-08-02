@@ -11,6 +11,7 @@ The Library Management System is a Spring Boot application designed to manage bo
 3. [API Endpoints](#api-endpoints)
    - [Books API](#books-api)
    - [Borrowing Records API](#borrowing-records-api)
+   - [Patron API](#patron-api)
 4. [Authentication](#authentication)
 5. [Error Handling](#error-handling)
 6. [Example Requests](#example-requests)
