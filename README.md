@@ -17,7 +17,7 @@ The Library Management System is a Spring Boot application designed to manage bo
 
 ## Requirements
 
-- **Java Development Kit (JDK)**: Version 11 or higher
+- **Java Development Kit (JDK)**: Version 22
 - **Maven**: For building and managing project dependencies
 - **IDE**: (Optional) IntelliJ IDEA, Eclipse, or any other Java IDE
 
@@ -26,5 +26,5 @@ The Library Management System is a Spring Boot application designed to manage bo
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-repo/library-management-system.git
-   cd library-management-system
+   git clone https://github.com/sh-osama-sami/library.git
+   cd library
