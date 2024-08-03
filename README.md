@@ -276,22 +276,26 @@ This API allows for full CRUD operations on patron records in the library manage
 
 ## Authentication
 ### Basic Authentication
-
-For endpoints that require authentication, include Basic Authentication credentials.
+Include Basic Authentication credentials.
 Example
 
 To authenticate using Basic Authentication, include the following HTTP headers:
 
     Header Name: Authorization
     Header Value: Basic base64(username:password)
+    
 
 Where base64(username:password) is the Base64-encoded string of your username and password.
+create a username and a password in the [application.properties](https://github.com/sh-osama-sami/library/blob/main/library/application.properties) file 
+    for example 
+    ```
+    spring.security.user.name=admin
+    spring.security.user.password=adminPass
+    ```
 Example using curl
-
-bash
-
-curl -u username:password http://localhost:8080/api/books
-
+```bash
+curl -u admin:adminPass http://localhost:8080/api/books
+```
 ## Error Handling
 ### HTTP Status Codes
 
