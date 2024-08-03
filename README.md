@@ -97,7 +97,7 @@ Delete a Book
     Method: DELETE
     Description: Delete a book by its ID.
 
-###Borrowing Records API
+### Borrowing Records API
 Get All Borrowing Records
 
     URL: /api/borrowing
@@ -142,7 +142,7 @@ Delete a Borrowing Record
     Method: DELETE
     Description: Delete a borrowing record by its ID.
 
-###Patron API
+### Patron API
 Get All Patrons 
 
 - **URL**: `/api/patrons`
