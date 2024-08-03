@@ -1,5 +1,6 @@
 package com.example.library.controller;
 
+import com.example.library.model.Book;
 import com.example.library.model.Patron;
 import com.example.library.service.PatronService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class PatronController {
     @Autowired
     private PatronService patronService;
 
+
     @GetMapping
     public List<Patron> getAllPatrons() {
         return patronService.getAllPatrons();
@@ -24,9 +26,8 @@ public class PatronController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Patron> getPatronById(@PathVariable Long id) {
-        return patronService.getPatronById(id)
-                .map(patron -> new ResponseEntity<>(patron, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Patron patron = patronService.getPatronById(id);
+        return patron != null ? new ResponseEntity<>(patron, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping

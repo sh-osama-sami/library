@@ -1,5 +1,6 @@
 package com.example.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -12,10 +13,12 @@ public class BorrowingRecord {
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
+    @JsonIgnore
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "patron_id", nullable = false)
+    @JsonIgnore
     private Patron patron;
 
     @Column(nullable = false)
@@ -23,6 +26,16 @@ public class BorrowingRecord {
 
     @Column(nullable = true)
     private LocalDate returnDate;
+
+    public BorrowingRecord() {
+    }
+    public BorrowingRecord( Book book, Patron patron, LocalDate borrowDate, LocalDate returnDate) {
+        this.book = book;
+        this.patron = patron;
+        this.borrowDate = borrowDate;
+        this.returnDate = returnDate;
+
+    }
 
     // Getters and setters
     public Long getId() {

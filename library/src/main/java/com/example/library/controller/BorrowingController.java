@@ -7,10 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/borrowing")
+@RequestMapping("/api/borrow")
 public class BorrowingController {
 
     @Autowired
@@ -27,15 +28,18 @@ public class BorrowingController {
         return record != null ? new ResponseEntity<>(record, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<BorrowingRecord> addBorrowingRecord(@RequestBody BorrowingRecord borrowingRecord) {
-        BorrowingRecord savedRecord = borrowingRecordService.addBorrowingRecord(borrowingRecord);
-        return new ResponseEntity<>(savedRecord, HttpStatus.CREATED);
+    @PostMapping("/{bookId}/patron/{patronId}")
+    public ResponseEntity<BorrowingRecord> addBorrowingRecord( @PathVariable Long bookId, @PathVariable Long patronId) {
+
+            BorrowingRecord savedRecord = borrowingRecordService.addBorrowingRecord(bookId, patronId);
+            return new ResponseEntity<>(savedRecord, HttpStatus.CREATED);
+
     }
 
-    @PutMapping("/return/{id}")
-    public ResponseEntity<BorrowingRecord> returnBook(@PathVariable Long id) {
-        BorrowingRecord updatedRecord = borrowingRecordService.returnBook(id);
+    @PutMapping("/return/{bookId}/patron/{patronId}")
+    public ResponseEntity<BorrowingRecord> returnBook(@PathVariable Long bookId,
+                                                      @PathVariable Long patronId) {
+        BorrowingRecord updatedRecord = borrowingRecordService.returnBook(bookId, patronId);
         return updatedRecord != null ? new ResponseEntity<>(updatedRecord, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

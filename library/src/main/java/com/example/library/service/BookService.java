@@ -26,15 +26,31 @@ public class BookService {
         return bookRepository.save(book);
     }
     @Transactional
-    public Book updateBook(Long id, Book updatedBook) {
-        return bookRepository.findById(id).map(book -> {
-            book.setTitle(updatedBook.getTitle());
-            book.setAuthor(updatedBook.getAuthor());
-            book.setYear(updatedBook.getYear());
-            return bookRepository.save(book);
-        }).orElse(null);
+    public Book updateBook(Long id, Book book) {
+        if (book == null || !isValidBook(book)) {
+            throw new IllegalArgumentException("Invalid book data");
+        }
+
+        Book existingBook = bookRepository.findById(id).orElse(null);
+        if (existingBook == null) {
+            return null;
+        }
+
+        // Update existing book with the new data
+        existingBook.setTitle(book.getTitle());
+        existingBook.setAuthor(book.getAuthor());
+        existingBook.setIsbn(book.getIsbn());
+        existingBook.setYear(book.getYear());
+
+        return bookRepository.save(existingBook);
     }
 
+    private boolean isValidBook(Book book) {
+        return book.getTitle() != null && !book.getTitle().isEmpty() &&
+                book.getAuthor() != null && !book.getAuthor().isEmpty() &&
+                book.getIsbn() != null && !book.getIsbn().isEmpty() &&
+                book.getYear() > 0;
+    }
     @Transactional
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);

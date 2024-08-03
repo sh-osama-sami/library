@@ -1,10 +1,12 @@
 package com.example.library.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import java.util.List;
 
 @Entity
 public class Book {
@@ -12,16 +14,24 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+
     private String title;
     private String author;
+    @NotNull
+
     private String isbn;
     private int year;
+
+    @OneToMany(mappedBy = "book")
+    @JsonBackReference
+    private List<BorrowingRecord> borrowingRecords;
 
 
     public Book() {
     }
 
-    public Book(String title, String author, String isbn) {
+    public Book(String title, String author, String isbn, int year) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
@@ -71,6 +81,13 @@ public class Book {
     }
 
 
+    public List<BorrowingRecord> getBorrowingRecords() {
+        return borrowingRecords;
+    }
+
+    public void setBorrowingRecords(List<BorrowingRecord> borrowingRecords) {
+        this.borrowingRecords = borrowingRecords;
+    }
 
 
 }

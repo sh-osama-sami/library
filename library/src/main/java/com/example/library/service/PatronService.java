@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class PatronService {
@@ -15,12 +15,19 @@ public class PatronService {
     @Autowired
     private PatronRepository patronRepository;
 
+
     public List<Patron> getAllPatrons() {
         return patronRepository.findAll();
     }
 
-    public Optional<Patron> getPatronById(Long id) {
-        return patronRepository.findById(id);
+
+
+    public Patron getPatronByUsername(String username) {
+        return patronRepository.findByUsername(username);
+    }
+
+    public Patron getPatronById(Long id) {
+        return patronRepository.findById(id).orElse(null);
     }
 
     @Transactional
@@ -30,11 +37,26 @@ public class PatronService {
 
     @Transactional
     public Patron updatePatron(Long id, Patron updatedPatron) {
-        return patronRepository.findById(id).map(patron -> {
-            patron.setName(updatedPatron.getName());
-            patron.setEmail(updatedPatron.getEmail());
-            return patronRepository.save(patron);
-        }).orElse(null);
+        if (updatedPatron == null || !isVaildPatron(updatedPatron)) {
+            throw new IllegalArgumentException("Invalid patron data");
+        }
+
+        Patron existingPatron = patronRepository.findById(id).orElse(null);
+        if (existingPatron == null) {
+            return null;
+        }
+
+        // Update existing patron with the new data
+        existingPatron.setName(updatedPatron.getName());
+        existingPatron.setUsername(updatedPatron.getUsername());
+        existingPatron.setPassword(updatedPatron.getPassword());
+        existingPatron.setEmail(updatedPatron.getEmail());
+
+        return patronRepository.save(existingPatron);
+    }
+
+   public boolean isVaildPatron(Patron patron){
+        return patron.getName() != null && !patron.getName().isEmpty();
     }
 
     @Transactional
